@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# La Vespa · Pizzería & Trattoria — Landing (MVP)
 
-## Getting Started
+Landing page de alto nivel para **La Vespa** (Madrid, Cundinamarca), construida con
+**Next.js 16 + React 19 + Tailwind v4 + Framer Motion**.
 
-First, run the development server:
+> MVP de propuesta. Las fotos son de stock optimizado (Unsplash vía `next/image`,
+> con conversión automática a AVIF/WebP). En producción se reemplazan por las fotos
+> reales del restaurante.
+
+## Cómo correrlo
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install        # si hace falta
+npm run dev        # http://localhost:3000
+npm run build      # build de producción
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Dónde se edita el contenido
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Todo** el texto, precios, fotos y datos de contacto están centralizados en:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+lib/content.ts
+```
 
-## Learn More
+Busca los comentarios `// ⚠️ PLACEHOLDER` para los datos que hay que confirmar con
+el cliente:
 
-To learn more about Next.js, take a look at the following resources:
+- **Dirección** exacta en Madrid, Cundinamarca
+- **Teléfono / WhatsApp** real (campos `phone` y `whatsapp`)
+- Ajustar **horarios** (`hours`) y **menú/precios** (`menu`)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Reemplazar fotos de stock por reales
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Sube las fotos a `public/images/`.
+2. En `lib/content.ts` cambia las URLs (`images`, `menu[].image`, `gallery[].src`)
+   por rutas locales, p. ej. `"/images/pizza-margherita.jpg"`.
+3. (Opcional) Quita el dominio de Unsplash en `next.config.ts`.
 
-## Deploy on Vercel
+## Estructura
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+app/
+  layout.tsx        # fuentes (Playfair, Inter, Dancing Script), SEO/metadata
+  page.tsx          # ensamblado de secciones
+  globals.css       # sistema de diseño (paleta, utilidades, textura)
+components/
+  Navbar.tsx        # nav fija con blur al hacer scroll + menú móvil
+  Hero.tsx          # portada full-screen con parallax
+  Story.tsx         # historia + estadísticas animadas
+  MenuSection.tsx   # menú con pestañas por categoría (animado)
+  QuoteBanner.tsx   # banner con cita y parallax
+  Gallery.tsx       # mosaico con hover
+  Testimonials.tsx  # reseñas
+  Visit.tsx         # mapa, horarios y contacto
+  Footer.tsx        # pie con redes
+  WhatsappFab.tsx   # botón flotante de WhatsApp
+lib/content.ts      # ⭐ TODO el contenido editable
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Características
+
+- Diseño responsive, mobile-first.
+- Animaciones con Framer Motion (parallax, reveals al scroll, transiciones de menú).
+- Imágenes optimizadas con `next/image` (lazy-loading, AVIF/WebP, `sizes` responsivos).
+- SEO básico y metadatos Open Graph en español (`es_CO`).
+- CTAs de conversión: reservar por WhatsApp, llamar, cómo llegar.
+- Respeta `prefers-reduced-motion`.

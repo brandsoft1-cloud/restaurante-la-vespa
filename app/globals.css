@@ -1,26 +1,133 @@
 @import "tailwindcss";
 
+/*
+  La Vespa — Pizzería & Trattoria · Madrid, Cundinamarca
+  Sistema de diseño: cálido, rústico-elegante italiano.
+*/
+
+@theme {
+  /* Paleta — basada en la marca real: amarillo limón + teal + crema */
+  --color-espresso: #1a1310;
+  --color-espresso-soft: #241a15;
+  --color-cream: #fbf6e9;
+  --color-cream-soft: #f3ead4;
+  --color-lemon: #f6c915; /* amarillo Vespa / limón */
+  --color-lemon-deep: #eab308;
+  --color-teal: #2c7a6f; /* verde-teal del logo */
+  --color-teal-dark: #1f5a52;
+  --color-vespa: #2c7a6f; /* acento principal = teal de marca */
+  --color-vespa-dark: #1f5a52;
+  --color-gold: #e0a90a;
+  --color-gold-soft: #f4d77a;
+  --color-basil: #5b7a44;
+
+  /* Tipografías */
+  --font-display: var(--font-playfair);
+  --font-body: var(--font-inter);
+  --font-script: var(--font-script);
+
+  /* Animaciones */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #1a1310;
+  --foreground: #f7f0e4;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-vespa);
+  color: var(--color-cream);
+}
+
+/* Scrollbar sutil */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-espresso);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-vespa-dark);
+  border-radius: 999px;
+}
+
+/* Utilidades */
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+.font-script {
+  font-family: var(--font-script), cursive;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Línea decorativa con icono central */
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  color: var(--color-gold);
+}
+.divider::before,
+.divider::after {
+  content: "";
+  height: 1px;
+  width: 3.5rem;
+  background: linear-gradient(
+    to var(--dir, right),
+    transparent,
+    var(--color-gold)
+  );
+}
+.divider::after {
+  --dir: left;
+}
+
+/* Rayas amarillas y blancas (pared de La Vespa) */
+.stripes {
+  background-image: repeating-linear-gradient(
+    90deg,
+    #ffffff 0,
+    #ffffff 4.5%,
+    var(--color-lemon) 4.5%,
+    var(--color-lemon) 9%
+  );
+}
+
+/* Wordmark del logo */
+.wordmark {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-teal);
+}
+
+/* Grano / textura sutil para fondos oscuros */
+.grain {
+  position: relative;
+}
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
