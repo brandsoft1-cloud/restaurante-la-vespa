@@ -1,24 +1,25 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter, Dancing_Script } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const playfair = Playfair_Display({
+// Fuentes auto-hospedadas (variables, subconjunto latino) para que el build
+// NO dependa de descargar de Google Fonts. Más rápido y deploy confiable.
+const playfair = localFont({
   variable: "--font-playfair",
-  subsets: ["latin"],
   display: "swap",
+  src: [{ path: "./fonts/playfair.woff2", weight: "400 800", style: "normal" }],
 });
 
-const inter = Inter({
+const inter = localFont({
   variable: "--font-inter",
-  subsets: ["latin"],
   display: "swap",
+  src: [{ path: "./fonts/inter.woff2", weight: "400 700", style: "normal" }],
 });
 
-const dancing = Dancing_Script({
+const dancing = localFont({
   variable: "--font-script",
-  subsets: ["latin"],
-  weight: ["600", "700"],
   display: "swap",
+  src: [{ path: "./fonts/dancing.woff2", weight: "600 700", style: "normal" }],
 });
 
 export const metadata: Metadata = {
