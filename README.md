@@ -66,3 +66,7 @@ lib/content.ts      # ⭐ TODO el contenido editable
 - SEO básico y metadatos Open Graph en español (`es_CO`).
 - CTAs de conversión: reservar por WhatsApp, llamar, cómo llegar.
 - Respeta `prefers-reduced-motion`.
+
+## Repositorio
+
+Código en [brandsoft1-cloud/restaurante-la-vespa](https://github.com/brandsoft1-cloud/restaurante-la-vespa).
